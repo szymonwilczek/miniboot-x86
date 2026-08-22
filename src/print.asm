@@ -1,12 +1,29 @@
 print_string:
 	push ax
-	mov al, [si]
-	cmp al, 0
-	je return
-	int 0x10
-	inc si
-	jmp print_string
+	push si
+	mov ah, 0x0E
 
-return:
+	.loop:
+		mov al, [si]
+		cmp al, 0
+		je .done
+		int 0x10
+		inc si
+		jmp .loop
+
+	.done:
+		pop si
+		pop ax
+		ret
+
+print_char:
+	push ax
+	mov ah, 0x0E
+	int 0x10
 	pop ax
+	ret
+
+print_enter:
+	mov al, 0x0A
+	call print_char
 	ret
