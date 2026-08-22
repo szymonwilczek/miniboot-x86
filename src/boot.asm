@@ -1,9 +1,6 @@
 [bits 16]           ; generate 16-bits instructions
 [org 0x7C00]        ; BIOS loading this under that address in RAM
 
-hello_string:
-	db "Hello in this funny little bootloader!", 0x0D, 0x0A, 0
-
 start:
 	mov ah, 0x0E    ; BIOS: output character to the screen
 	mov si, hello_string ; zaladuj stringa do rejestru si
@@ -24,6 +21,9 @@ write:
 
 hang:
 	jmp hang
+
+hello_string:
+	db "Hello in this funny little bootloader!", 0x0D, 0x0A, 0
 
 ; fill out with zeros to 510 bytes
 times 510 - ($ - $$) db 0
