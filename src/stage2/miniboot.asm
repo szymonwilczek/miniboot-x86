@@ -1,5 +1,5 @@
-[bits 16]           ; generate 16-bits instructions
-[org 0x7C00]        ; BIOS loading this under that address in RAM
+[bits 16]
+[org 0x8000]
 
 start:
 	xor ax, ax
