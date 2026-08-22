@@ -4,21 +4,20 @@ QEMU = qemu-system-i386
 SRC_DIR = src
 BUILD_DIR = build
 TARGET = $(BUILD_DIR)/boot.bin
-SRC = $(SRC_DIR)/boot.asm
 
-.PHONY: all run qemu-gdb clean
+MAIN_SRC = $(SRC_DIR)/boot.asm
+ALL_SRCS = $(wildcard $(SRC_DIR)/*.asm)
+
+.PHONY: all run clean
 
 all: $(TARGET)
 
-$(TARGET): $(SRC)
+$(TARGET): $(ALL_SRCS)
 	@mkdir -p $(BUILD_DIR)
-	$(ASM) -f bin $< -o $@
+	$(ASM) -f bin $(MAIN_SRC) -o $@
 
 run: $(TARGET)
 	$(QEMU) -drive format=raw,file=$(TARGET)
-
-qemu-gdb: $(TARGET)
-	$(QEMU) -drive format=raw,file=$(TARGET) -s -S
 
 clean:
 	rm -rf $(BUILD_DIR)
