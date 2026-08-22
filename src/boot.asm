@@ -22,6 +22,7 @@ hang:
 
 %include "src/print.asm"
 %include "src/keyboard.asm"
+%include "src/commands.asm"
 %include "src/constants.asm"
 
 ;; END SECTOR
