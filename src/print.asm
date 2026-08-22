@@ -24,6 +24,8 @@ print_char:
 	ret
 
 print_enter:
+	mov al, 0x0D
+	call print_char
 	mov al, 0x0A
 	call print_char
 	ret
