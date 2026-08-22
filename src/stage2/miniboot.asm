@@ -8,6 +8,8 @@ start:
 	mov ss, ax
 	mov sp, 0x7C00
 
+	call print_boot_logo
+
 	mov ah, 0x0E    ; BIOS: output character to the screen
 	mov si, title_string
 	call print_string
