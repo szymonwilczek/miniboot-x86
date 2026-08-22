@@ -1,23 +1,38 @@
 ASM = nasm
-QEMU = qemu-system-i386
+ASMFLAGS = -f bin
 
-SRC_DIR = src
 BUILD_DIR = build
-TARGET = $(BUILD_DIR)/boot.bin
+SRC_DIR = src
 
-MAIN_SRC = $(SRC_DIR)/boot.asm
-ALL_SRCS = $(wildcard $(SRC_DIR)/*.asm)
+STAGE1_SRC = $(SRC_DIR)/stage1/boot.asm
+STAGE2_SRC = $(SRC_DIR)/stage2/miniboot.asm
 
-.PHONY: all run clean
+STAGE1_BIN = $(BUILD_DIR)/boot.bin
+STAGE2_BIN = $(BUILD_DIR)/miniboot.bin
+OS_IMG = $(BUILD_DIR)/miniboot.img
 
-all: $(TARGET)
+.PHONY: all clean run
 
-$(TARGET): $(ALL_SRCS)
-	@mkdir -p $(BUILD_DIR)
-	$(ASM) -f bin $(MAIN_SRC) -o $@
+all: $(OS_IMG)
 
-run: $(TARGET)
-	$(QEMU) -drive format=raw,file=$(TARGET)
+$(BUILD_DIR):
+	mkdir -p $(BUILD_DIR)
+
+# Stage 1 (MBR - 512 bytes)
+$(STAGE1_BIN): $(STAGE1_SRC) | $(BUILD_DIR)
+	$(ASM) $(ASMFLAGS) -i $(SRC_DIR)/stage1/ $< -o $@
+
+# Stage 2 (Miniboot Firmware Core)
+$(STAGE2_BIN): $(STAGE2_SRC) $(shell find $(SRC_DIR)/stage2 -type f) | $(BUILD_DIR)
+	$(ASM) $(ASMFLAGS) -i $(SRC_DIR)/stage2/ $< -o $@
+
+# Stage 1 + Stage 2
+$(OS_IMG): $(STAGE1_BIN) $(STAGE2_BIN)
+	cat $(STAGE1_BIN) $(STAGE2_BIN) > $(OS_IMG)
+	truncate -s 1440k $(OS_IMG)
+
+run: $(OS_IMG)
+	qemu-system-x86_64 -drive format=raw,file=$(OS_IMG)
 
 clean:
 	rm -rf $(BUILD_DIR)
