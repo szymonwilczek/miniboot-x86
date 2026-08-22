@@ -20,16 +20,8 @@ start:
 hang:
 	jmp hang
 
-%include "src/print.asm"
-%include "src/keyboard.asm"
-%include "src/commands.asm"
-%include "src/string.asm"
-%include "src/constants.asm"
-
-;; END SECTOR
-
-; fill out with zeros to 510 bytes
-times 510 - ($ - $$) db 0
-
-; bootable sector signature (last 2 bytes: 511, 512)
-dw 0xAA55
+%include "src/stage2/lib/string.asm"
+%include "src/stage2/lib/constants.asm"
+%include "src/stage2/drivers/print.asm"
+%include "src/stage2/drivers/keyboard.asm"
+%include "src/stage2/shell/commands.asm"
