@@ -1,4 +1,5 @@
 print_string:
+	push ax
 	mov al, [si]
 	cmp al, 0
 	je return
@@ -7,4 +8,5 @@ print_string:
 	jmp print_string
 
 return:
+	pop ax
 	ret
