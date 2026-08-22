@@ -15,7 +15,7 @@ start:
 	mov si, subtitle_string
 	call print_string
 
-	call read_char
+	call init_keyboard
 
 hang:
 	jmp hang
@@ -23,6 +23,7 @@ hang:
 %include "src/print.asm"
 %include "src/keyboard.asm"
 %include "src/commands.asm"
+%include "src/string.asm"
 %include "src/constants.asm"
 
 ;; END SECTOR
