@@ -11,6 +11,9 @@ read_char:
 	cmp al, 0x08
 	je .backspace
 
+	cmp cx, max_command_chars-1
+	jge read_char ; buffer overflow prevention
+
 	call print_char
 	mov [di], al ; zapamietanie kodu ASCII
 	inc di ; nastepny wolny bajt (do zapamietania nastepnego)
