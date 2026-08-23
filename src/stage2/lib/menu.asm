@@ -86,7 +86,7 @@ run_boot_menu:
 		je .reboot_machine
 	
 .boot_linux:
-	jmp $
+	jmp linux_loader
 .start_shell:
 	call init_keyboard
 .setup_utility:

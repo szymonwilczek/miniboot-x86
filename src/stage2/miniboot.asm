@@ -9,7 +9,6 @@ start:
 	mov sp, 0x7C00
 
 	call print_boot_logo
-
 	call run_boot_menu
 hang:
 	jmp hang
@@ -17,6 +16,10 @@ hang:
 %include "src/stage2/lib/string.asm"
 %include "src/stage2/lib/constants.asm"
 %include "src/stage2/lib/menu.asm"
+
 %include "src/stage2/drivers/print.asm"
 %include "src/stage2/drivers/keyboard.asm"
+
 %include "src/stage2/shell/commands.asm"
+
+%include "loader/linux.asm"
