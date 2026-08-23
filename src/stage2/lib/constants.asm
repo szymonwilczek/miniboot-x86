@@ -21,7 +21,7 @@ slogan_6: db "Waking up at 0x7C00 everyday", 0x0D, 0x0A, 0
 slogan_7: db "Look ma! No OS!", 0x0D, 0x0A, 0
 slogan_8: db "I want to put on my, my, my, my, my bootin' shoes!", 0x0D, 0x0A, 0
 slogan_9: db "Just a warm hug for your processor :)", 0x0D, 0x0A, 0
-slogan_10: db "Your friendly neighborhood miniboot.", 0x0D, 0x0A, 0
+slogan_10: db "Your friendly neighborhood bootloader.", 0x0D, 0x0A, 0
 slogan_11: db "You know, I am something of a bootloader myself.", 0x0D, 0x0A, 0
 slogan_12: db "I can do this all day. Literally, I loop.", 0x0D, 0x0A, 0
 slogan_13: db "And I am... Iron Boot *snaps into 32-bit mode*", 0x0D, 0x0A, 0
