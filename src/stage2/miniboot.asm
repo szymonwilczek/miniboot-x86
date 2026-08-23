@@ -10,20 +10,13 @@ start:
 
 	call print_boot_logo
 
-	mov ah, 0x0E    ; BIOS: output character to the screen
-	mov si, title_string
-	call print_string
-
-	mov si, subtitle_string
-	call print_string
-
-	call init_keyboard
-
+	call run_boot_menu
 hang:
 	jmp hang
 
 %include "src/stage2/lib/string.asm"
 %include "src/stage2/lib/constants.asm"
+%include "src/stage2/lib/menu.asm"
 %include "src/stage2/drivers/print.asm"
 %include "src/stage2/drivers/keyboard.asm"
 %include "src/stage2/shell/commands.asm"
