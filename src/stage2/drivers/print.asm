@@ -40,6 +40,14 @@ print_boot_logo:
 	mov ax, 0x0003
 	int 0x10
 
+	mov dx, 0x03D4      ; CRT index register
+	mov al, 0x09        ; 9 = Maximum Scan Line
+	out dx, al
+
+	inc dx              ; 0x03D5 (data)
+	mov al, 17          ; 17 + 1 = 18 pixel lines
+	out dx, al
+
 	; print boot logo
 	mov si, boot_logo
 	call print_string
