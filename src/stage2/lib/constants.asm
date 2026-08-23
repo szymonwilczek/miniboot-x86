@@ -16,7 +16,7 @@ slogan_1: db "Small footprint, big ambitions", 0x0D, 0x0A, 0
 slogan_2: db "A boot-iful way to start", 0x0D, 0x0A, 0
 slogan_3: db "To boot or not to boot?", 0x0D, 0x0A, 0
 slogan_4: db "Sector zero, but #1 hero", 0x0D, 0x0A, 0
-slogan_5: db "Big loader energy, whole 16 bits...", 0x0D, 0x0A, 0
+slogan_5: db "Kernel incoming! Hold on tight!", 0x0D, 0x0A, 0
 slogan_6: db "Waking up at 0x7C00 everyday", 0x0D, 0x0A, 0
 slogan_7: db "Look ma! No OS!", 0x0D, 0x0A, 0
 slogan_8: db "I want to put on my, my, my, my, my bootin' shoes!", 0x0D, 0x0A, 0
