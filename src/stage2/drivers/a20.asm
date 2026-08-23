@@ -47,3 +47,25 @@ check_a20:
 		pop es
 
 		ret
+
+enable_a20:
+	call check_a20
+	cmp ax, 1
+	je .done
+
+	mov ax, 0x2401
+	int 0x15
+	call check_a20
+	cmp ax, 1
+	je .done
+
+	in al, 0x92
+	or al, 0x02
+	and al, 0xFE ; do not trigger CPU bit 0 (fast reset) by mistake
+	out 0x92, al
+	call check_a20
+	cmp ax, 1
+	je .done
+
+	.done:
+		ret
