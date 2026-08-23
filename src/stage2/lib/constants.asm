@@ -5,11 +5,11 @@ subtitle_string:
 	db "I guess we are doing things kind of modular now", 0x0D, 0x0A, 0
 
 boot_logo:
-	db " __  __ ___ _  _ ___ ___  ___   ___ _____", 0x0D, 0x0A
- 	db "|  \/  |_ _| \| |_ _| _ )/ _ \ / _ \_   _|", 0x0D, 0x0A
- 	db "| |\/| || || .` || || _ \ (_) | (_) || |", 0x0D, 0x0A
- 	db "|_|  |_|___|_|\_|___|___/\___/ \___/ |_|", 0x0D, 0x0A
-	db 0x0D, 0x0A, 0
+    db " .-------.    __  __ ___ _  _ ___ ___  ___   ___ _____", 0x0D, 0x0A
+    db " | ^ - ^ |   |  \/  |_ _| \| |_ _| _ )/ _ \ / _ \_   _|", 0x0D, 0x0A
+    db " |       |   | |\/| || || .` || || _ \ (_) | (_) || |", 0x0D, 0x0A
+    db " '-d---b-'   |_|  |_|___|_|\_|___|___/\___/ \___/ |_|", 0x0D, 0x0A
+    db 0x0D, 0x0A, 0
 
 slogan_0: db "Your mini friend for big boot", 0x0D, 0x0A, 0
 slogan_1: db "Small footprint, big ambitions", 0x0D, 0x0A, 0
