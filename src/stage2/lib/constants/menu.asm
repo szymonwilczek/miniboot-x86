@@ -1,0 +1,15 @@
+MENU_COUNT equ 3
+
+menu_opt_0: db "Minimal Linux Kernel", 0
+menu_opt_1: db "Miniboot Diagnostic Shell", 0
+menu_opt_2: db "UEFI-like Setup Utility", 0
+menu_opt_3: db "Reboot System", 0 ; probably I will rework that to be command instead of choice in menu
+
+menu_table:
+	dw menu_opt_0
+	dw menu_opt_1
+	dw menu_opt_2
+	dw menu_opt_3
+
+selected_item: db 0 ; index of currently selected position
+
