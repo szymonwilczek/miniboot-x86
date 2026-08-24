@@ -86,8 +86,7 @@ run_boot_menu:
 		je .reboot_machine
 	
 .boot_linux:
-	jmp $
-	; jmp linux_loader
+	jmp linux_loader
 .start_shell:
 	jmp $
 	; call init_keyboard
@@ -97,3 +96,4 @@ run_boot_menu:
 	int 0x19
 
 %include "src/stage2/lib/constants/menu.asm"
+%include "loader/linux.asm"
