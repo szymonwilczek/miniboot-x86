@@ -24,16 +24,32 @@ boot:
 
 	.disk_error:
 		mov si, error_string
-		call print_string
+		jmp .print_string
 		jmp .hang
 	.hang:
+		jmp .hang
+
+.print_string:
+	push ax
+	push si
+	mov ah, 0x0E
+
+	.loop:
+		mov al, [si]
+		cmp al, 0
+		je .done
+		int 0x10
+		inc si
+		jmp .loop
+
+	.done:
+		pop si
+		pop ax
 		jmp .hang
 
 BOOT_DRIVE: db 0
 error_string:
 	db "Oh noo. I am very sorry that I failed you... I could not do that.", 0x0D, 0x0A, 0
-
-%include "src/stage2/drivers/print.asm"
 
 times 510 - ($ - $$) db 0
 dw 0xAA55
