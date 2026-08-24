@@ -23,28 +23,21 @@ linux_loader:
 	mov al, 4
 
 	.setup_sects_ready:
-		mov [setup_sects_count], al
-		xor ah, ah
-		mov bx, KERNEL_LBA_START + 1
-		mov cx, 0
-		mov ax, SETUP_SEGMENT
-		mov es, ax
-		mov di, 0x0200
-		mov dl, [BOOT_DRIVE]
-		call read_sectors_lba
+		mov ax, word [es:0x01F4] ; syssize
+		shr ax, 5 ; syssize / 32
+		inc ax ; round up
+		mov [kernel_sectors], ax
 
-	mov ax, word [es:0x01F4] ; syssize
-	shr ax, 5 ; syssize / 32
-	inc ax
-	mov [kernel_sectors], ax
+		movzx bx, byte [setup_sects_count]
+		add bx, KERNEL_LBA_START + 1
+		mov [payload_lba_start], bx
 
-	movzx bx, byte [setup_sects_count]
-	add bx, KERNEL_LBA_START + 1
-	mov [payload_lba_start], bx
+		mov byte [es:0x0210], 0xFF ; type_of_loader = custom bootloader
+		or byte [es:0x0211], 0x01 ; loadflags: set LOADED_HIGH
+		mov dword [es:0x0228], 0x00000000 ; cmd_line_ptr (0 if no params)
 
-	mov byte [es:0x0210], 0xFF ; type_of_loader = custom bootloader
-	or byte [es:0x0211], 0x01 ; loadflags: set LOADED_HIGH
-	mov dword [es:0x0228], 0x00000000 ; cmd_line_ptr (0 if no params)
+		ret
+
 
 .a20_error:
 	mov si, msg_a20_error
