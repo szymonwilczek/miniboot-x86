@@ -4,7 +4,7 @@ read_sectors_lba:
 	push bx
 	push es
 	push di
-	push dl
+	push dx
 
 	mov [dap_count], ax
 	mov [dap_offset], di
@@ -19,7 +19,7 @@ read_sectors_lba:
 	int 0x13
 
 	jc .disk_error
-	pop dl
+	pop dx
 	pop di
 	pop es
 	pop bx
