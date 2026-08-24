@@ -1,6 +1,10 @@
 %ifndef CONSTANTS_DAP
 %define CONSTANTS_DAP
 
+KERNEL_LBA_START equ 64
+SETUP_SEGMENT equ 0x1000
+HEADER_MAGIC equ 0x53726448 ; HdrS
+
 align 4
 dap_packet:
 	dap_size:	db 0x10  ; byte 0
