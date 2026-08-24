@@ -2,12 +2,12 @@
 [org 0x7C00]
 
 boot:
-	mov [BOOT_DRIVE], dl
 	xor ax, ax
 	mov ds, ax
 	mov es, ax ; target sector in RAM
 	mov ss, ax
 	mov sp, 0x7C00
+	mov [BOOT_DRIVE], dl
 
 	mov ah, 0x02 ; read sectors
 	mov al, 0x04 ; 4 sectors, so thats about 2kB for stage 2
@@ -17,9 +17,9 @@ boot:
 	mov dl, [BOOT_DRIVE] ; read remembered boot drive number
 	mov bx, 0x8000 ; target offset in RAM (physical address)
 	int 0x13
-
 	jc .disk_error
 
+	mov dl, [BOOT_DRIVE]
 	jmp 0x0000:0x8000
 
 	.disk_error:

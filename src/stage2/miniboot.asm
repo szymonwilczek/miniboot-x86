@@ -7,6 +7,7 @@ start:
 	mov es, ax
 	mov ss, ax
 	mov sp, 0x7C00
+	mov [BOOT_DRIVE], dl
 
 	call print_boot_logo
 	call run_boot_menu
