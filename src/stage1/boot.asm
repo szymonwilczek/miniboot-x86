@@ -47,7 +47,8 @@ boot:
 		pop ax
 		jmp .hang
 
-BOOT_DRIVE: db 0
+%include "src/stage1/lib/constants/stage1_const.asm"
+
 error_string:
 	db "Oh noo. I am very sorry that I failed you... I could not do that.", 0x0D, 0x0A, 0
 
