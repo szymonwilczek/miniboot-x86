@@ -93,3 +93,5 @@ run_boot_menu:
 	jmp $
 .reboot_machine:
 	int 0x19
+
+%include "src/stage2/lib/constants/menu.asm"

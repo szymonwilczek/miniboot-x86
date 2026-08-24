@@ -1,3 +1,6 @@
+%ifndef CONSTANTS_BOOT
+%define CONSTANTS_BOOT
+
 boot_logo:
     db " .-------.    __  __ ___ _  _ ___ ___  ___   ___ _____", 0x0D, 0x0A
     db " | ^ - ^ |   |  \/  |_ _| \| |_ _| _ )/ _ \ / _ \_   _|", 0x0D, 0x0A
@@ -38,3 +41,5 @@ slogans_table:
 	dw slogan_12
 	dw slogan_13
 	dw slogan_14
+
+%endif

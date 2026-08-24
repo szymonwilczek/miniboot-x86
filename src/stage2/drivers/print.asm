@@ -99,3 +99,5 @@ print_random_slogan:
 	pop bx
 	pop ax
 	ret
+
+%include "src/stage2/lib/constants/boot.asm"
