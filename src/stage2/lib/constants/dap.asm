@@ -15,4 +15,4 @@ dap_packet:
 	dap_lba_low:	dd 0     ; byte 8-11 (low 32 bits of LBA sector number)
 	dap_lba_high:	dd 0     ; byte 12-15 (high 32 bits of LBA sector number)
 
-%endif CONSTANTS_DAP
+%endif
