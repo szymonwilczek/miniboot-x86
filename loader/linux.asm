@@ -23,6 +23,7 @@ linux_loader:
 	mov al, 4
 
 	.setup_sects_ready:
+		mov [setup_sects_count], al
 		mov ax, word [es:0x01F4] ; syssize
 		shr ax, 5 ; syssize / 32
 		inc ax ; round up
