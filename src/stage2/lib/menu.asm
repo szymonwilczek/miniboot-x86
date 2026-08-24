@@ -86,9 +86,11 @@ run_boot_menu:
 		je .reboot_machine
 	
 .boot_linux:
-	jmp linux_loader
+	jmp $
+	; jmp linux_loader
 .start_shell:
-	call init_keyboard
+	jmp $
+	; call init_keyboard
 .setup_utility:
 	jmp $
 .reboot_machine:
