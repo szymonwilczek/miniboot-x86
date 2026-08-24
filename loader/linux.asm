@@ -7,7 +7,7 @@ linux_loader:
 	mov cx, 0
 	mov ax, SETUP_SEGMENT
 	mov es, ax
-	mov ax, 1
+	mov ax, 32
 	mov di, 0x0000
 	mov dl, [BOOT_DRIVE]
 	call read_sectors_lba
