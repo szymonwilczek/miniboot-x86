@@ -3,7 +3,7 @@
 
 STAGE2_LOAD_SEG equ 0x0000
 STAGE2_LOAD_OFFSET equ 0x8000
-STAGE2_SECTORS_NUM equ 4
+STAGE2_SECTORS_NUM equ 16
 
 ; segments normalization and stack configuration
 boot:

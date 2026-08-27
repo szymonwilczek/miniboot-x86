@@ -26,7 +26,7 @@ $(STAGE1_BIN): $(STAGE1_SRC) | $(BUILD_DIR)
 $(STAGE2_BIN): $(STAGE2_SRC) | $(BUILD_DIR)
 	$(ASM) $(ASMFLAGS) $< -o $@
 
-$(TARGET_IMG): $(TARGET_BIN)
+$(TARGET_IMG): $(STAGE1_BIN) $(STAGE2_BIN)
 	dd if=/dev/zero of=$(TARGET_IMG) bs=512 count=2880
 	dd if=$(STAGE1_BIN) of=$(TARGET_IMG) conv=notrunc
 	dd if=$(STAGE2_BIN) of=$(TARGET_IMG) bs=512 seek=1 conv=notrunc

@@ -2,31 +2,51 @@
 [org 0x8000]
 
 stage2_entry:
+	xor ax, ax
+	mov ds, ax
+	mov es, ax
 	mov [boot_drive], dl
-	
-	mov si, msg_stage2
-	call .print_string
+
+	call screen_clear
+
+	mov dh, 1
+	mov dl, 2
+	call screen_set_cursor
+
+	mov si, boot_logo
+	mov bl, 0x0B
+	call screen_print_color
+
+	mov ah, 0x00
+	int 0x1A
+	mov ax, dx
+	xor dx, dx
+	mov cx, SLOGAN_COUNT
+	div cx ; dx = dx % SLOGAN_COUNT
+
+	shl dx, 1 ; dx * 2
+	mov bx, dx
+	mov si, [slogans_table + bx]
+
+	mov dh, 6
+	mov dl, 4
+	mov bl, 0x0E
+	call screen_print_color
+
+	mov dh, 8
+	mov dl, 4
+	call screen_set_cursor
+	mov si, msg_status
+	mov bl, 0x0A
+	call screen_print_color
 
 .hang:
 	cli
 	hlt
 	jmp .hang
 
-.print_string:
-	push ax
-	push si
-	mov ah, 0x0E
+%include "src/stage2/io/screen.asm"
+%include "src/stage2/lib/constants/boot.asm"
 
-	.loop:
-		lodsb
-		test al, al
-		jz .done
-		int 0x10
-		jmp .loop
-	.done:
-		pop si
-		pop ax
-		ret
-
-msg_stage2: db 0x0D, 0x0A, "WELCOME TO STAGE 2!", 0x0D, 0x0A, 0
+msg_status: db 0x0D, 0x0A, "[OK] STAGE 2 initialized in 16bit Real Mode. Cool right?", 0x0D, 0x0A, 0
 boot_drive: db 0
