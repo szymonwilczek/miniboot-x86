@@ -6,9 +6,11 @@ SRC_DIR = src
 
 STAGE1_SRC = $(SRC_DIR)/stage1/boot.asm
 STAGE2_SRC = $(SRC_DIR)/stage2/miniboot.asm
+STUB_SRC = $(SRC_DIR)/kernel_stub.asm
 
 STAGE1_BIN = $(BUILD_DIR)/boot.bin
 STAGE2_BIN = $(BUILD_DIR)/stage2.bin
+STUB_BIN = $(BUILD_DIR)/kernel.bin
 TARGET_IMG = $(BUILD_DIR)/miniboot.img
 
 .PHONY: all clean run
@@ -26,10 +28,14 @@ $(STAGE1_BIN): $(STAGE1_SRC) | $(BUILD_DIR)
 $(STAGE2_BIN): $(STAGE2_SRC) | $(BUILD_DIR)
 	$(ASM) $(ASMFLAGS) $< -o $@
 
-$(TARGET_IMG): $(STAGE1_BIN) $(STAGE2_BIN)
+$(STUB_BIN): $(STUB_SRC) | $(BUILD_DIR)
+	$(ASM) $(ASMFLAGS) $< -o $@
+
+$(TARGET_IMG): $(STAGE1_BIN) $(STAGE2_BIN) $(STUB_BIN)
 	dd if=/dev/zero of=$(TARGET_IMG) bs=512 count=2880
 	dd if=$(STAGE1_BIN) of=$(TARGET_IMG) conv=notrunc
 	dd if=$(STAGE2_BIN) of=$(TARGET_IMG) bs=512 seek=1 conv=notrunc
+	dd if=$(STUB_BIN) of=$(TARGET_IMG) bs=512 seek=17 conv=notrunc
 
 clean:
 	rm -rf $(BUILD_DIR)
