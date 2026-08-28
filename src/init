@@ -1,0 +1,19 @@
+#!/bin/busybox sh
+
+/bin/busybox mount -t proc proc /proc
+/bin/busybox mount -t sysfs sysfs /sys
+/bin/busybox mount -t devtmpfs devtmpfs /dev
+
+export PATH=/bin:/sbin:/usr/bin:/usr/sbin
+export HOME=/root
+export TERM=linux
+export PS1="miniboot:\w# "
+
+/bin/busybox clear
+echo ""
+echo "-------------------------------------"
+echo "    WELCOME TO MINIBOOT LINUX ;)     "
+echo "-------------------------------------"
+echo ""
+
+exec /bin/busybox setsid /bin/busybox cttyhack /bin/busybox sh
