@@ -33,13 +33,31 @@ stage2_entry:
 	mov bl, 0x0E
 	call screen_print_color
 
+	; A20 test (and enabling)
+	call enable_a20
+	test ax, ax
+	jz .a20_failed
+
 	mov dh, 8
 	mov dl, 4
 	call screen_set_cursor
-	mov si, msg_status
+	mov si, msg_a20_ok
 	mov bl, 0x0A
 	call screen_print_color
+	jmp .continue
 
+.a20_failed:
+	mov dh, 8
+	mov dl, 4
+	call screen_set_cursor
+	mov si, msg_a20_err
+	mov bl, 0x00
+	call screen_print_color
+	cli
+	hlt
+	jmp $
+.continue:
+	; next episode!
 .hang:
 	cli
 	hlt
@@ -47,6 +65,8 @@ stage2_entry:
 
 %include "src/stage2/io/screen.asm"
 %include "src/stage2/lib/constants/boot.asm"
+%include "src/stage2/drivers/a20.asm"
 
-msg_status: db 0x0D, 0x0A, "[OK] STAGE 2 initialized in 16bit Real Mode. Cool right?", 0x0D, 0x0A, 0
+msg_a20_ok: db 0x0D, 0x0A, "[OK] A20 Gate enabled successfully.", 0x0D, 0x0A, 0
+msg_a20_err: db 0x0D, 0x0A, "[FAIL] Fatal: Could not enable A20 Gate!", 0x0D, 0x0A, 0
 boot_drive: db 0
